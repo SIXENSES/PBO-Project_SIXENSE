@@ -7,7 +7,7 @@ Original file is located at
     https://colab.research.google.com/drive/1Ck2eSQJVM8sL0-TRPkBXllZ2_cb_gDsZ
 """
 
-nama = "Andi Saputra"
+nama = "Terry Geming"
 umur = 25
 ipk = 3.75
 mahasiswa_aktif = True
