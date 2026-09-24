@@ -25,7 +25,7 @@ print(type(mahasiswa_aktif))
 print(len(nama))
 
 nama = "Jhon Bosco Egnalsius Laorens"
-umur = 23
+umur = 25
 ipk = 4
 mahasiswa_aktif = True
 
