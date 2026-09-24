@@ -8,7 +8,7 @@ Original file is located at
 """
 
 nama = "Andi Saputra"
-umur = 20
+umur = 25
 ipk = 3.75
 mahasiswa_aktif = True
 
