@@ -1,4 +1,6 @@
+import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Scanner;
 
 class Menu {
@@ -17,6 +19,12 @@ public class CafeOrderingSystem {
 
     static Scanner input = new Scanner(System.in);
     static ArrayList<Menu> menuList = new ArrayList<>();
+
+    // Membuat formatter khusus untuk format angka Indonesia (pemisah ribuan menggunakan titik)
+    static String formatRupiah(double nominal) {
+        NumberFormat formatter = NumberFormat.getNumberInstance(new Locale("id", "ID"));
+        return formatter.format(nominal);
+    }
 
     public static void main(String[] args) {
 
@@ -81,13 +89,14 @@ public class CafeOrderingSystem {
 
             Menu menu = menuList.get(i);
 
+            // Menggunakan formatRupiah di sini
             System.out.println(
                 (i + 1) + ". " +
                 menu.name +
                 " | " +
                 menu.category +
                 " | Rp" +
-                menu.price
+                formatRupiah(menu.price)
             );
         }
     }
@@ -114,6 +123,7 @@ public class CafeOrderingSystem {
         System.out.print("New category  : ");
         menu.category = input.nextLine();
 
+        // Saat menginput data, tetap gunakan format angka standar (tanpa titik)
         System.out.print("New price     : Rp");
         menu.price = input.nextDouble();
         input.nextLine();
@@ -155,12 +165,13 @@ public class CafeOrderingSystem {
             if (menu.name.toLowerCase()
                     .contains(keyword.toLowerCase())) {
 
+                // Menggunakan formatRupiah di sini
                 System.out.println(
                     menu.name +
                     " | " +
                     menu.category +
                     " | Rp" +
-                    menu.price
+                    formatRupiah(menu.price)
                 );
 
                 found = true;
@@ -201,10 +212,9 @@ public class CafeOrderingSystem {
             };
 
             if (selectedCategory.isEmpty()) {
-                continue; // Kembali ke awal perulangan pesanan jika salah pilih
+                continue; 
             }
 
-            // Membuat list sementara khusus untuk kategori yang dipilih
             ArrayList<Menu> filteredMenu = new ArrayList<>();
             for (Menu menu : menuList) {
                 if (menu.category.equalsIgnoreCase(selectedCategory)) {
@@ -217,11 +227,11 @@ public class CafeOrderingSystem {
                 continue;
             }
 
-            // Menampilkan menu berdasarkan kategori
             System.out.println("\n--- Daftar " + selectedCategory + " ---");
             for (int i = 0; i < filteredMenu.size(); i++) {
                 Menu menu = filteredMenu.get(i);
-                System.out.println((i + 1) + ". " + menu.name + " | Rp" + menu.price);
+                // Menggunakan formatRupiah di sini
+                System.out.println((i + 1) + ". " + menu.name + " | Rp" + formatRupiah(menu.price));
             }
 
             System.out.print("\nEnter menu number: ");
@@ -234,25 +244,21 @@ public class CafeOrderingSystem {
 
             System.out.print("Enter quantity: ");
             int quantity = input.nextInt();
-            input.nextLine(); // membersihkan buffer
+            input.nextLine(); 
 
-            // Mengambil data menu dari list yang sudah disaring
             Menu menu = filteredMenu.get(number - 1);
             double subTotal = menu.price * quantity;
             
-            // Tambahkan subtotal ke total keseluruhan
             grandTotal += subTotal;
             
-            // Simpan detail pesanan ini ke dalam list
-            orderDetails.add("- " + menu.name + " (" + quantity + "x) : Rp" + subTotal);
+            // Menggunakan formatRupiah untuk subTotal
+            orderDetails.add("- " + menu.name + " (" + quantity + "x) : Rp" + formatRupiah(subTotal));
 
-            // Menanyakan apakah ingin menambah pesanan (misal: tambah minuman)
             System.out.print("\nApakah Anda ingin menambahkan pesanan lain? (ya/tidak): ");
             addMore = input.nextLine();
 
-        } while (addMore.equalsIgnoreCase("y"));
+        } while (addMore.equalsIgnoreCase("ya") || addMore.equalsIgnoreCase("y"));
 
-        // Menampilkan Struk Akhir
         System.out.println("\n========== ORDER DETAILS ==========");
         System.out.println("Nama Pemesan : " + customerName);
         System.out.println("Daftar Pesanan:");
@@ -260,7 +266,8 @@ public class CafeOrderingSystem {
             System.out.println(detail);
         }
         System.out.println("-----------------------------------");
-        System.out.println("TOTAL KESELURUHAN : Rp" + grandTotal);
+        // Menggunakan formatRupiah untuk grandTotal
+        System.out.println("TOTAL KESELURUHAN : Rp" + formatRupiah(grandTotal));
         System.out.println("===================================");
 
         System.out.println("Pesanan berhasil dibuat!");
