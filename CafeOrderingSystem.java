@@ -28,7 +28,7 @@ public class CafeOrderingSystem {
 
     public static void main(String[] args) {
 
-        // Data menu awal
+        // Data semua menu
         menuList.add(new Menu("Pisang Keju", "Makanan", 10000.0));
         menuList.add(new Menu("French Fries", "Makanan", 15000.0));
         menuList.add(new Menu("Spaghetti", "Makanan", 28000.0));
@@ -49,36 +49,32 @@ public class CafeOrderingSystem {
 
             switch (choice) {
                 case 1 -> displayMenu();
-                case 2 -> editMenu();
-                case 3 -> deleteMenu();
-                case 4 -> searchMenu();
-                case 5 -> orderMenu();
-                case 6 -> System.out.println("\nThank you for using Cafe Ordering System!");
+                case 2 -> searchMenu();
+                case 3 -> orderMenu();
+                case 4 -> System.out.println("\nTerima kasih telah memesan di Cafe kami!");
                 default -> System.out.println("\nInvalid choice!");
             }
 
-        } while (choice != 6);
+        } while (choice != 4);
     }
 
-    // Main Menu
+    // Tampilan Menu Utama
     static void showMainMenu() {
 
         System.out.println("\n======================================");
         System.out.println("        CAFE ORDERING SYSTEM");
         System.out.println("======================================");
         System.out.println("1. Display Menu");
-        System.out.println("2. Edit Menu");
-        System.out.println("3. Delete Menu");
-        System.out.println("4. Search Menu");
-        System.out.println("5. Order Menu");
-        System.out.println("6. Exit");
+        System.out.println("2. Search Menu");
+        System.out.println("3. Order Menu");
+        System.out.println("4. Exit");
         System.out.println("======================================");
     }
 
-    // Display Menu
+    // Tampilan Menu
     static void displayMenu() {
 
-        System.out.println("\n========== MENU KOPI ==========");
+        System.out.println("\n========== ALL MENU ==========");
 
         if (menuList.isEmpty()) {
             System.out.println("Menu is empty.");
@@ -101,56 +97,7 @@ public class CafeOrderingSystem {
         }
     }
 
-    // Edit Menu
-    static void editMenu() {
-
-        displayMenu();
-
-        System.out.print("\nEnter menu number to edit: ");
-        int number = input.nextInt();
-        input.nextLine();
-
-        if (number < 1 || number > menuList.size()) {
-            System.out.println("Invalid menu number!");
-            return;
-        }
-
-        Menu menu = menuList.get(number - 1);
-
-        System.out.print("New menu name : ");
-        menu.name = input.nextLine();
-
-        System.out.print("New category  : ");
-        menu.category = input.nextLine();
-
-        // Saat menginput data, tetap gunakan format angka standar (tanpa titik)
-        System.out.print("New price     : Rp");
-        menu.price = input.nextDouble();
-        input.nextLine();
-
-        System.out.println("\nMenu successfully updated!");
-    }
-
-    // Delete Menu
-    static void deleteMenu() {
-
-        displayMenu();
-
-        System.out.print("\nEnter menu number to delete: ");
-        int number = input.nextInt();
-        input.nextLine();
-
-        if (number < 1 || number > menuList.size()) {
-            System.out.println("Invalid menu number!");
-            return;
-        }
-
-        menuList.remove(number - 1);
-
-        System.out.println("\nMenu successfully deleted!");
-    }
-
-    // Search Menu
+    // Tampilan Pencarian Menu
     static void searchMenu() {
 
         System.out.println("\n========== CARI MENU ==========");
@@ -183,7 +130,7 @@ public class CafeOrderingSystem {
         }
     }
 
-    // Order Menu
+    // Tampilan Order Menu
     static void orderMenu() {
 
         System.out.println("\n========== ORDER MENU ==========");
@@ -266,7 +213,7 @@ public class CafeOrderingSystem {
             System.out.println(detail);
         }
         System.out.println("-----------------------------------");
-        // Menggunakan formatRupiah untuk grandTotal
+        // Menggunakan format Rupiah untuk grandTotal
         System.out.println("TOTAL KESELURUHAN : Rp" + formatRupiah(grandTotal));
         System.out.println("===================================");
 
